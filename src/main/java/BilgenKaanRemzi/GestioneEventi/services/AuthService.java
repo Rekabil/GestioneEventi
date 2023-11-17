@@ -41,7 +41,6 @@ public class AuthService {
         });
 
         User newUser = new User();
-        newUser.setPicture("http://ui-avatars.com/api/?name="+body.name() + "+" + body.surname());
         newUser.setName(body.name());
         newUser.setSurname(body.surname());
         newUser.setPassword(bcrypt.encode(body.password()));

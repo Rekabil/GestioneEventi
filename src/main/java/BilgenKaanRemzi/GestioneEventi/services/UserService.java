@@ -3,8 +3,6 @@ package BilgenKaanRemzi.GestioneEventi.services;
 import BilgenKaanRemzi.GestioneEventi.entieties.User;
 import BilgenKaanRemzi.GestioneEventi.exceptions.NotFoundException;
 import BilgenKaanRemzi.GestioneEventi.repository.UserRepository;
-import com.cloudinary.Cloudinary;
-import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,8 +18,6 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private Cloudinary cloudinary;
 
     public Page<User> GetUsers(int page, int size, String orderBy) {
         Pageable pageable = PageRequest.of(page,size, Sort.by(orderBy));
@@ -42,6 +38,7 @@ public class UserService {
         found.setName(body.getName());
         found.setSurname(body.getSurname());
         found.setEmail(body.getEmail());
+        found.setRole(body.getRole());
         return userRepository.save(found);
     }
 

@@ -30,7 +30,6 @@ public class User {
     private String surname;
     private String email;
     private String password;
-    private String picture;
     @CreationTimestamp
     private Date createdAt;
     @Enumerated(EnumType.STRING)
@@ -40,6 +39,12 @@ public class User {
     @JsonIgnore
     @ToString.Exclude
     private List<Event> events;
+
+    @OneToMany(mappedBy = "createdBy" , cascade = CascadeType.REMOVE)
+    @JsonIgnore
+    @ToString.Exclude
+    private List<Event> eventList;
+
 
     @Override
     public final boolean equals(Object o) {

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -15,10 +16,16 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 private String title;
-
+private String description;
+private LocalDate date;
+private String luogo;
+private int numPartecipants;
+private String picture;
     @CreationTimestamp
     private Date createdAt;
 
+    @ManyToOne
+    @JoinColumn(name = "userId")
     private User createdBy;
 
     @ManyToMany

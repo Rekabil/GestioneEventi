@@ -1,8 +1,11 @@
 package BilgenKaanRemzi.GestioneEventi.services;
 
 import BilgenKaanRemzi.GestioneEventi.entieties.Event;
+import BilgenKaanRemzi.GestioneEventi.entieties.User;
+import BilgenKaanRemzi.GestioneEventi.enums.Role;
 import BilgenKaanRemzi.GestioneEventi.exceptions.NotFoundException;
 import BilgenKaanRemzi.GestioneEventi.repository.EventRepository;
+import BilgenKaanRemzi.GestioneEventi.security.RoleCheckerFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,8 +19,16 @@ public class EventService {
     @Autowired
     private EventRepository eventRepository;
 
-    public Event save(Event body) {
-        return eventRepository.save(body);
+    public Event save(Event body, User currentUser) {
+        body.setCreatedBy(currentUser);
+        if (currentUser.getRole().equals(Role.ORGANIZER)){
+            System.out.println("Authorized");
+            return eventRepository.save(body);
+        } else {
+          System.out.println("Not Authorized");
+          return body;
+        }
+
     }
 
     public Page<Event> getEvents(int page,int size, String orderBy){

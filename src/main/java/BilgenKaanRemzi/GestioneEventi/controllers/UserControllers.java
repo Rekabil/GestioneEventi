@@ -25,8 +25,8 @@ public class UserControllers {
         return currentUser;
     }
     @PutMapping("/me")
-    public UserDetails getProfile(@AuthenticationPrincipal User currentUser,@RequestBody User body) {
-        return (UserDetails) userService.findAndUpdate(currentUser.getId(),body);
+    public User getProfile(@AuthenticationPrincipal User currentUser, @RequestBody User body) {
+        return userService.findAndUpdate(currentUser.getId(),body);
     }
 
     @DeleteMapping("/me")
